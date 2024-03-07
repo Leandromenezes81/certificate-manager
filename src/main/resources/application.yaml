@@ -1,0 +1,69 @@
+spring:
+    datasource:
+        url: ${DATABASE_URL}
+        driverClassName: org.postgresql.Driver
+        username: ${DATABASE_USERNAME}
+        password: ${DATABASE_PASSWORD}
+        hikari:
+            pool-name: certificate-manager
+            maximum-pool-size: 10
+            max-lifetime: 1800000
+            idle-timeout: 300000
+            validation-timeout: 8000
+            minimum-idle: 5
+    jpa:
+        database:
+            platform: org.hibernate.dialect.PostgreSQL9Dialect
+        properties:
+            hibernate:
+                default_schema: ${DATABASE_SCHEMA}
+                format_sql: false
+        show-sql: false
+    flyway:
+        enabled: true
+        baselineOnMigrate: true
+        schemas: ${DATABASE_SCHEMA}
+
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    issuer-uri: ${AUTH_CLIENT_CLIENT_URL}/
+
+security:
+    ignored: /**
+
+management:
+    metrics:
+        export:
+            newrelic:
+                enabled: false
+server:
+    error:
+        include-message: always
+        include-stacktrace: on_trace_param
+
+auth0:
+    audience: ${AUTH_CLIENT_AUDIENCE}
+
+logging:
+    level:
+        org:
+            hibernate:
+                SQL: debug
+                type:
+                    descriptor:
+                        sql: trace
+            springframework:
+                security: off
+
+cryptography:
+    encrypt_algorithm: ${ENCRYPT_ALGORITHM}
+    hash_algorithm: ${HASH_ALGORITHM}
+    secret_key: ${SECRET_KEY}
+    transformation: ${TRANSFORMATION}
+
+springfox:
+    documentation:
+        swagger-ui:
+            enabled: ${SWAGGER_ENABLED}

@@ -1,0 +1,12 @@
+branch-defaults:
+  main:
+    environment: certificate-manager-env-prd
+  develop:
+    environment: certificate-manager-env-dev
+global:
+  application_name: certificate-manager
+  default_region: us-east-2
+  profile: null
+  sc: git
+deploy:
+  artifact: target/certificate-manager-1.0.0.jar
